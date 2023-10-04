@@ -1,0 +1,12 @@
+.cat-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Adjust as needed */
+    gap: 16px; /* Adjust as needed for spacing between cards */
+  }
+  
+  .cat-card {
+    flex-basis: calc(33.33% - 16px); /* Adjust for desired width and margin */
+    margin-bottom: 16px; /* Adjust for spacing between rows */
+  }
+  

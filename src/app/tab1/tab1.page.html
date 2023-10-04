@@ -1,17 +1,40 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+  <ion-header [translucent]="true">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title>
+        Home
+      </ion-title>
     </ion-toolbar>
   </ion-header>
-
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  
+  <ion-content [fullscreen]="true">
+    <div *ngFor="let name of cats">
+      <ion-card>
+        <img alt="Silhouette of mountains" (click)="detailsPage(name.id)" src={{name.img}} />
+        <ion-card-header>
+          <ion-card-title>{{name.name}}</ion-card-title>
+          <ion-card-subtitle>{{name.skill}}</ion-card-subtitle>
+        </ion-card-header>
+        
+        <ion-card-content>
+          Here's a small text description for the card content. Nothing more, nothing less.
+        </ion-card-content>
+      </ion-card>
+    </div>
+    <ion-fab slot="fixed" vertical="bottom" horizontal="start">
+      <ion-fab-button>
+        <ion-icon name="radio-button-on-outline"></ion-icon>
+      </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button>
+        <ion-icon name="document"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button>
+        <ion-icon name="color-palette"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button>
+        <ion-icon name="globe"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+  <!-- <app-explore-container name="Tab 1 page"></app-explore-container> -->
 </ion-content>

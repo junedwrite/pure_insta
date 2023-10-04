@@ -1,0 +1,17 @@
+<form [formGroup]="validateUse" (ngSubmit)="registerFun(validateUse.value)">
+  <ion-card style="    display: flex;
+flex-direction: column;
+justify-content: center;
+top: 39%;">
+  <ion-card-header>
+    <ion-input label="User Name" type="text" formControlName="username"  labelPlacement="floating" #name name="username" value="" placeholder="Enter Your Name"></ion-input>
+    <ion-input label="User" type="text" formControlName="email"  labelPlacement="floating" #name name="email" value="" placeholder="Enter Email"></ion-input>
+    <ion-input label="Password" labelPlacement="floating" formControlName="password"  name="Password" #password value="" placeholder="Enter text"></ion-input>
+  </ion-card-header>
+  
+  <ion-card-content>
+    <ion-button style="display: flex;justify-content: center;" fill="outline" type="submit">Register</ion-button>
+    <ion-button size="small" (click)="LoginPage()">Login</ion-button>
+  </ion-card-content>
+</ion-card>
+</form>
