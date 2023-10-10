@@ -4,7 +4,7 @@
       Explore
     </ion-title> -->
     <ion-toolbar>
-      <ion-searchbar></ion-searchbar>
+      <ion-searchbar (keyup)="searchName($event)" value="{{heroName}}" ></ion-searchbar>
     </ion-toolbar>
   </ion-toolbar>
 </ion-header>
@@ -12,21 +12,44 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Explore</ion-title>
+      <!-- <ion-title size="large">Explore</ion-title> -->
     </ion-toolbar>
   </ion-header>
-  <div class="cat-container">
+  <!-- <ion-button (click)="myPlayer()">Play</ion-button> -->
+  <ion-content *ngIf="items && items.length">
+    <ion-list>
+      <ion-icon style=" position: relative;left: 9px;" name="close-circle" (click)="clearSearchFun()"></ion-icon>
+      <ion-item *ngFor="let item of items; let index">
+        <ion-avatar slot="start" (click)="detailsPage(item.id)">
+          <img src="{{item.image}}" alt="avatar" />
+        </ion-avatar>
+        <ion-label (click)="detailsPage(item.id)">{{ item.title | slice:0:10 }}</ion-label>
+      </ion-item>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-content>
+  <div class="cat-container" *ngIf="!heroName.length">
     <div *ngFor="let profile of cats" class="cat-card">
       <ion-card>
         <ion-card-header>
-          <ion-card-subtitle style="display: flex; flex-direction: row-reverse;">{{profile.name}}</ion-card-subtitle>
+          <ion-card-subtitle style="display: flex; flex-direction: row-reverse;">{{ profile.title | slice:0:10 }}</ion-card-subtitle>
         </ion-card-header>
         <ion-card-content>
-          <img src="{{profile.img}}" alt="">
+          <img src="{{profile.image}}" alt="">
         </ion-card-content>
       </ion-card>
     </div>
   </div>
-  
+  <ion-content *ngIf="!cats.length">
+    <div class="loading"  style="position: relative;  left: 35%; top: 321px;">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </ion-content>
   <!-- <app-explore-container name="Tab 2 page"></app-explore-container> -->
 </ion-content>

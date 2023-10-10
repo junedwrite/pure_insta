@@ -1,0 +1,78 @@
+
+<app-appheader (headerData)="handleHeaderData($event)"></app-appheader>
+
+
+<ion-content [fullscreen]="true">
+ <div *ngIf="receivedData && receivedData.length">
+  <ion-icon style="position: relative;left: 10px;" (click)="cleardata()" name="close-circle"></ion-icon>
+  <div  *ngFor="let item of receivedData">
+  <ion-item-sliding>
+    <ion-item [button]="true" (click)="detailsPage(item.id)">
+      <ion-avatar aria-hidden="true" slot="start">
+        <img alt="" src="{{item.image}}" />
+      </ion-avatar>
+      <ion-label>{{ item.title | slice:0:10 }}</ion-label>
+    </ion-item>
+    <ion-item-options slot="end">
+      <ion-item-option color="warning">
+        <ion-icon slot="icon-only" name="pin"></ion-icon>
+      </ion-item-option>
+      <ion-item-option color="tertiary">
+        <ion-icon slot="icon-only" name="share"></ion-icon>
+      </ion-item-option>
+      <ion-item-option color="danger" expandable="true">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+</div>
+ </div>
+  <div *ngIf="!receivedData.length" class="container" style="display: flex;flex-direction: row;gap:6px;">
+    <!-- <img src="https://tse2.mm.bing.net/th?id=OIP.4Ys7wuyTQZwxPh1dfqhZOAHaEO&pid=Api&P=0&h=180" style="border-radius: 50%;width: 89px;height: 89px;" alt=""> -->
+    <img (click)="categories_filterFun('electronics')" src="https://tse3.mm.bing.net/th?id=OIP.BeOxTsY1k8oUPsJXT5MYMQAAAA&pid=Api&P=0&h=180" style="border-radius: 50%;width: 89px;height: 89px;" alt="">
+    <img (click)="categories_filterFun('jewelery')" src="https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg" style="border-radius: 50%;width: 89px;height: 89px;" alt="">
+    <img (click)="categories_filterFun('men')" src="https://tse1.mm.bing.net/th?id=OIP.-9SxkWP2eNdCf0FqAfx4lQHaHa&pid=Api&P=0&h=180" style="border-radius: 50%;width: 89px;height: 89px;" alt="">
+    <img (click)="categories_filterFun('women')" src="https://tse2.mm.bing.net/th?id=OIP.N3TZ6Zbwavh2bQkAJbzX7QD-Es&pid=Api&P=0&h=180" style="border-radius: 50%;width: 89px;height: 89px;" alt="">
+    <img (click)="categories_filterFun('women')" src="https://tse3.mm.bing.net/th?id=OIP.8RuWBzJwreN79in0w82HSAHaHa&pid=Api&P=0&h=180" style="border-radius: 50%;width: 89px;height: 89px;" alt="">
+    <img (click)="categories_filterFun('jewelery')" src="https://tse4.mm.bing.net/th?id=OIP.BeOxTsY1k8oUPsJXT5MYMQHaEu&pid=Api&P=0&h=180" style="border-radius: 50%;width: 89px;height: 89px;" alt="">
+    <img (click)="categories_filterFun('jewelery')" src="https://tse2.mm.bing.net/th?id=OIP.NT-2_36viU_amZa98gymjwHaE7&pid=Api&P=0&h=180" style="border-radius: 50%;width: 89px;height: 89px;" alt="">
+  </div>
+  <div *ngFor="let name of products">
+    <ion-card (click)="detailsPage(name.id)" >
+      <img alt="Silhouette of mountains"  src={{name.image}} />
+      <ion-card-header>
+        <ion-card-title>{{name.product_name}}</ion-card-title>
+        <ion-card-subtitle>₹{{name.price}}</ion-card-subtitle>
+        <ion-card-subtitle>{{name.brand_name}}</ion-card-subtitle>
+      </ion-card-header>
+      
+      <ion-card-content>
+        {{name.description}}
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <div class="loading" *ngIf="!products.length" style="position: relative;  left: 35%; top: 321px;">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <!-- <ion-fab slot="fixed" vertical="bottom" horizontal="start">
+    <ion-fab-button>
+      <ion-icon name="radio-button-on-outline"></ion-icon>
+    </ion-fab-button>
+  <ion-fab-list side="top">
+    <ion-fab-button>
+      <ion-icon name="document"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button>
+      <ion-icon name="color-palette"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button>
+      <ion-icon name="globe"></ion-icon>
+    </ion-fab-button>
+  </ion-fab-list>
+</ion-fab> -->
+<!-- <app-explore-container name="Tab 1 page"></app-explore-container> -->
+</ion-content>

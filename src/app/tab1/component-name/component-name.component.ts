@@ -25,13 +25,13 @@ export class ComponentNameComponent  implements OnInit {
      }
 
   ngOnInit() {
-    this.userDetails= localStorage.getItem("userDetails");
+    this.userDetails= localStorage.getItem("token");
     if(this.userDetails)
     {
       console.log('userDetails',this.userDetails);
-      this.userDetails=JSON.parse(this.userDetails);
+      // this.userDetails=JSON.parse(this.userDetails);
       console.log('islogin',this.userDetails);
-      if(this.userDetails.email)
+      if(this.userDetails)
       {
         // this.islogin=true;
         this.router.navigateByUrl('/tabs/tab1/home');
@@ -41,7 +41,7 @@ export class ComponentNameComponent  implements OnInit {
     }
    
     this.validateUse=this.FormBuilder.group({
-      email: new FormControl('',Validators.compose([Validators.required])),
+      username: new FormControl('',Validators.compose([Validators.required])),
       password: new FormControl('',Validators.compose([Validators.required]))
     })
   }
@@ -50,28 +50,59 @@ export class ComponentNameComponent  implements OnInit {
   }
   loginFun(value:any)
   {
-    if(value.email.lenght==0)
+    if(value.username.lenght==0)
     {
-      console.log(value.email)
+      console.log(value.username)
     }
-    console.log('value',value)
-    console.log(this.validateUse)
-    this.api.loginservice(value).subscribe((data:any)=>{
-      console.log('data',data);
-      if(data && data.token && data.data)
-      {
-        let userDetails =JSON.stringify(data.data);
-        localStorage.setItem("token", data.token);
+    fetch('https://fakestoreapi.com/auth/login', {
+  method: 'POST', // Specify the HTTP method (POST)
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json' // Set the content type to JSON
+  },
+  body: JSON.stringify({
+    username: value.username, // Include the username and password in the request body
+    password: value.password
+  })
+})
+.then(res => res.json()) // Parse the response as JSON
+.then(data => {
+  // Handle the JSON response data here
+  console.log(data);
+  if(data && data.token)
+  {
+    localStorage.setItem("token", data.token);
+    this.api.userLogin=true;
+    this.router.navigateByUrl('/tabs/tab1/home');
+    this.api.userDetails.next(data.token);
+  }else{
+    console.log('data not found')
+  }
 
-        localStorage.setItem("userDetails",userDetails);
-        this.api.userDetails.next(data.data);
-        this.api.userLogin=true;
-        this.router.navigateByUrl('/tabs/tab1/home');
-      }else{
-        // this.api.userLogin=false;
-        this.message='User Not Found'
-      }
-    })
+})
+.catch(error => {
+  // Handle any errors that occur during the request
+  console.log('Error:', error);
+});
+
+    // console.log('value',value)
+    // console.log(this.validateUse)
+    // this.api.loginservice(value).subscribe((data:any)=>{
+    //   console.log('data',data);
+    //   if(data && data.token && data.data)
+    //   {
+    //     let userDetails =JSON.stringify(data.data);
+    //     localStorage.setItem("token", data.token);
+
+    //     localStorage.setItem("userDetails",userDetails);
+    //     this.api.userDetails.next(data.data);
+    //     this.api.userLogin=true;
+    //     this.router.navigateByUrl('/tabs/tab1/home');
+    //   }else{
+    //     // this.api.userLogin=false;
+    //     this.message='User Not Found'
+    //   }
+    // })
     // console.log('user',this.userId,'password',this.password)
   }
   registerfun()

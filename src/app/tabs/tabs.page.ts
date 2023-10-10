@@ -19,12 +19,12 @@ export class TabsPage implements OnInit ,OnChanges{
     console.log('cjhangess')
   }
   ngOnInit() {
-     this.userDetails= localStorage.getItem("userDetails");
+     this.userDetails= localStorage.getItem("token");
     if(this.userDetails)
     {
-      this.userDetails=JSON.parse(this.userDetails);
+      // this.userDetails=JSON.parse(this.userDetails);
       console.log('islogin',this.userDetails);
-      if(this.userDetails.email)
+      if(this.userDetails)
       {
         this.islogin=true;
       }

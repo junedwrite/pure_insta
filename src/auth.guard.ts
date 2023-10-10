@@ -11,13 +11,14 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      let userDetails:any= localStorage.getItem("userDetails");
+      // let userDetails:any= localStorage.getItem("userDetails");
+      let userDetails:any= localStorage.getItem("token");
       let login:boolean=false
     if(userDetails)
     {
-      userDetails=JSON.parse(userDetails);
+      // userDetails=JSON.parse(userDetails);
       console.log('islogin',userDetails);
-      if(userDetails.email)
+      if(userDetails)
       {
         login=true
       }else{
@@ -26,7 +27,8 @@ export class AuthGuard implements CanActivate {
 
       }
     }else{
-      this.router.navigateByUrl('/tabs/tab1');
+      this.router.navigateByUrl('/tabs/tab1/login');
+      console.log('login',login)
     }
     console.log('login',login)
     return login;

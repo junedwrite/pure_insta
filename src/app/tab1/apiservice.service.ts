@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class ApiserviceService {
-  ServiceBaseUrl='http://192.168.1.25:3001'
+  ServiceBaseUrl='http://192.168.29.74:3001'
   userDetails = new Subject<any>();
   userLogin:boolean=false;
   // ServiceBaseUrl='http://192.168.37.13:3001'
@@ -28,13 +28,28 @@ export class ApiserviceService {
 
   herosListService()
   {
-    var url = this.ServiceBaseUrl +"/heros_List";
+    // var url = this.ServiceBaseUrl +"/products";
+    var url = 'https://fakestoreapi.com/products';
     return this.http.get(url);
   }
   herodataByID(id:any)
   { 
     const requestData = { id }; 
-    var url = this.ServiceBaseUrl +"/hero_detail";
+    // var url = this.ServiceBaseUrl +"/product_detail";
+    var url = 'https://fakestoreapi.com/products/'+id;
+    // return this.http.post(url,requestData);
+    return this.http.get(url);
+  }
+  hero_names_list(name:any)
+  { 
+    const requestData = { name }; 
+    var url = this.ServiceBaseUrl +"/hero_names";
+    return this.http.post(url,requestData);
+  }
+  addTocard(info:any)
+  { 
+    const requestData = { info }; 
+    var url = this.ServiceBaseUrl +"/addTocard";
     return this.http.post(url,requestData);
   }
   logout()
@@ -42,5 +57,17 @@ export class ApiserviceService {
     localStorage.clear();
     this.router.navigateByUrl('');
    
+  }
+
+  categories()
+  {
+    let url ='https://fakestoreapi.com/products/categories';
+    return this.http.get(url);
+
+  }
+  categories_filter(categories:any)
+  {
+    let url ='https://fakestoreapi.com/products/category/'+categories
+    return this.http.get(url);
   }
 }
